@@ -27,12 +27,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_ENV', 'development') == 'development'
+if not SECRET_KEY:
+    raise Exception('SECRET_KEY is not set')
 
-ALLOWED_HOSTS = [
-    'localhost',
-]
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DJANGO_ENV') == 'development'
+
+ALLOWED_HOSTS = []
+
+if DEBUG:
+    ALLOWED_HOSTS.append('*')
+else:
+    allowed_hosts = os.getenv('ALLOWED_HOSTS')
+    if not allowed_hosts:
+        raise Exception('ALLOWED_HOSTS must be set in production')
+    ALLOWED_HOSTS.extend(allowed_hosts.split(','))
 
 
 # Application definition
