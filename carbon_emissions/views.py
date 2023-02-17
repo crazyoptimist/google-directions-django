@@ -8,6 +8,11 @@ import requests
 from .serializers import PathLatlngSerializer
 
 GOOGLE_DIRECTIONS_API_BASE_URL = "https://maps.googleapis.com/maps/api/directions/json"
+carbon_consumption = {
+    "driving": 0.192,
+    "train": 0.041,
+    "walking": 0,
+}
 
 
 @api_view(http_method_names=["POST"])
@@ -29,13 +34,13 @@ def get_carbon_emissions_by_latlng(request: Request):
         data={
             "driving_distance": distance_driving,
             "driving_time": duration_driving,
-            "driving_carbon": 0.0,
+            "driving_carbon": distance_driving * carbon_consumption["driving"],
             "walking_distance": distance_walking,
             "walking_time": duration_walking,
             "walking_carbon": 0.0,
             "train_distance": distance_train,
             "train_time": duration_train,
-            "train_carbon": 0.0,
+            "train_carbon": distance_driving * carbon_consumption["train"],
         },
         status=status.HTTP_200_OK,
     )
