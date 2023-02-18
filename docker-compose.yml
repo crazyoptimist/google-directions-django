@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  toohla_api:
+    container_name: toohla_api
+    build: .
+    ports:
+      - "8000:8000"
