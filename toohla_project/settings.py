@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "carbon_emissions",
     # Third party
     "rest_framework",
+    "drf_yasg",
 ]
 
 REST_FRAMEWORK = {}

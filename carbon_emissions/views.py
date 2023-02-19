@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 import requests
+from drf_yasg.utils import swagger_auto_schema
 from .serializers import PathLatlngSerializer
 
 GOOGLE_DIRECTIONS_API_BASE_URL = "https://maps.googleapis.com/maps/api/directions/json"
@@ -16,6 +17,11 @@ carbon_consumption = {
 }
 
 
+@swagger_auto_schema(
+    methods=["POST"],
+    operation_description="Returns carbon emissions calculation data given origin and destination by lat, lng",
+    request_body=PathLatlngSerializer,
+)
 @api_view(http_method_names=["POST"])
 def get_carbon_emissions_by_latlng(request: Request):
     serializer = PathLatlngSerializer(instance=request.data)
