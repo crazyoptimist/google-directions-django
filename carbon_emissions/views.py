@@ -1,5 +1,6 @@
 import os
 from urllib.parse import urlencode
+from rest_framework.exceptions import APIException
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
@@ -21,13 +22,13 @@ def get_carbon_emissions_by_latlng(request: Request):
     origin = serializer.data["origin"]
     destination = serializer.data["destination"]
 
-    distance_driving, duration_driving = get_distance_duration(
+    distance_driving, duration_driving = get_distance_duration_from_google(
         get_endpoint_driving(origin, destination)
     )
-    distance_train, duration_train = get_distance_duration(
+    distance_train, duration_train = get_distance_duration_from_google(
         get_endpoint_train(origin, destination)
     )
-    distance_walking, duration_walking = get_distance_duration(
+    distance_walking, duration_walking = get_distance_duration_from_google(
         get_endpoint_walking(origin, destination)
     )
     return Response(
@@ -46,9 +47,11 @@ def get_carbon_emissions_by_latlng(request: Request):
     )
 
 
-def get_distance_duration(google_directions_endpoint):
+def get_distance_duration_from_google(google_directions_endpoint):
     result = requests.get(google_directions_endpoint)
     google_response = result.json()
+    if not google_response["status"] == "OK":
+        raise APIException(detail=google_response["status"])
     legs = google_response["routes"][0]["legs"]
     distance = 0
     duration = 0
