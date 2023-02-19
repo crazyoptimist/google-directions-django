@@ -29,3 +29,9 @@ This is a RESTful service when a user inputs their origin and destination into t
 - Install dependencies by `pip install -r requirements.txt`
 - Install git pre-commit hooks by `pre-commit install`
 - Run the dev server by `python manage.py runserver`
+
+### API documentation
+
+Automatic swagger API documentation is configured, and you can find it by browsing `BASE_URL/swagger` in `development`.
+
+In production, run `python manage.py collectstatic` for generating API docs static files, and configure the production web server(nginx or caddy etc) to serve the static files in a desired path.
