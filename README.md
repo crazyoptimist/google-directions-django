@@ -18,10 +18,8 @@ This is a RESTful service when a user inputs their origin and destination into t
 
 ### Run
 
-- Create dot env by `cp .env.example .env` and configure with proper values for production
+- Create dot env by `cp .env.example .env` and configure with proper values
 - Run by `docker compose up -d`
-
-### Test
 
 ### Development
 
