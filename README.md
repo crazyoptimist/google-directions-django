@@ -1,4 +1,5 @@
 # Toohla REST API
+[![Test](https://github.com/crazyoptimist/google-directions-drf-poc/actions/workflows/test.yml/badge.svg)](https://github.com/crazyoptimist/google-directions-drf-poc/actions/workflows/test.yml)
 
 ### What is this?
 
