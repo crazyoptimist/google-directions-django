@@ -28,6 +28,10 @@ This is a RESTful service when a user inputs their origin and destination into t
 - Install git pre-commit hooks by `pre-commit install`
 - Run the dev server by `python manage.py runserver`
 
+### Test
+
+- Run unit tests by `python manage.py test -v 2`
+
 ### API documentation
 
 Automatic swagger API documentation is configured, and you can find it by browsing `BASE_URL/swagger` in `development`.
