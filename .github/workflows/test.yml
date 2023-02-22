@@ -7,13 +7,13 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.11]
+        python-version: [3.11]
 
     steps:
     - uses: actions/checkout@v3
@@ -27,4 +27,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test -v 2
+        DJANGO_ENV=development python manage.py test -v 2

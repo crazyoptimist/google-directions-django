@@ -27,9 +27,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
-if not SECRET_KEY:
-    raise Exception("SECRET_KEY is not set")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_ENV") == "development"
 
@@ -37,11 +34,14 @@ ALLOWED_HOSTS = []
 
 if DEBUG:
     ALLOWED_HOSTS.append("*")
+    SECRET_KEY = "django-insecure-jjtay1x&pc&d^ic$byzpzh1a=477ue3d*w7@yi0oh31fm%bk@h"
 else:
     allowed_hosts = os.getenv("ALLOWED_HOSTS")
     if not allowed_hosts:
         raise Exception("ALLOWED_HOSTS must be set in production")
     ALLOWED_HOSTS.extend(allowed_hosts.split(","))
+    if not SECRET_KEY:
+        raise Exception("SECRET_KEY is not set")
 
 
 # Application definition
