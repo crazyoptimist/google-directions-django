@@ -1,4 +1,5 @@
 import os
+from typing import cast, Any
 from urllib.parse import urlencode
 from rest_framework.exceptions import APIException
 from rest_framework.request import Request
@@ -24,7 +25,8 @@ carbon_consumption = {
 )
 @api_view(http_method_names=["POST"])
 def get_carbon_emissions_by_latlng(request: Request):
-    serializer = PathLatlngSerializer(instance=request.data)
+    serializer = PathLatlngSerializer(data=cast(Any, request.data))
+    serializer.is_valid(raise_exception=True)
     origin = serializer.data["origin"]
     destination = serializer.data["destination"]
 
